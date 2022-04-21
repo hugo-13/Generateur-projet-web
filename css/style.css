@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #696969 !important;
+}
+
+
+/* navbar  */
+header nav p {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-transform: uppercase;
+    color: rgb(49, 97, 255);
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 12.5px;
+}
+
+header nav a {
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+header nav a:last-child{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: calc(50% - 115px);
+}
+
+header nav img:hover {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+
+
+main {
+    background-color: #696969;
+    color: white;
+    height: auto;
+}
+main form {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    height: auto;
+}
+
+main .mb-3 {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+main form .form-control {
+    width: 75%;
+}
+
+main button {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Les erreurs  */
+main form center,
+main form span {
+    color: red;
+    font-weight: 600;
+}
+
+main form center {
+    text-transform: uppercase !important;
+}
+
+main h2 {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: #30b0ff;
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+/* footer page  */
+.footers a {
+    color: #696969;
+}
+
+.footers p {
+    color: #696969;
+}
+
+.footers li {
+    color: #696969;
+    text-decoration: 2px dashed black;
+}
+
+.footers ul {
+    line-height: 30px;
+}
+
+.footers-three a {
+    color: #0091ea;
+    text-decoration: none !important;
+
+}
+
+.text .list-unstyled li a:hover {
+    color: #005e98 !important;
+}
+
+.text .list-unstyled li a span:hover {
+    color: #005e98 !important;
+}
+
+
+#social-fb:hover {
+    color: #0091ea;
+    transition: all .001s;
+}
+
+#social-tw:hover {
+    color: #4099FF;
+    transition: all .001s;
+}
+
+#social-gp:hover {
+    color: #d34836;
+    transition: all .001s;
+}
+
+#social-em:hover {
+    color: #f39c12;
+    transition: all .001s;
+}
+
+.copyright {
+    color: #fff;
+    background: #e9e9e9;
+}
+
+#footer .col-md-2 {
+    margin-left: 7%;
+    width: auto;
+}
+
+#footer .text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -100px;
+}
+
+@media screen and (max-width:1000px) {
+    #footer .text {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #footer .footers-logo img {
+        display: none;
+    }
+
+
+}
+
+@media screen and (max-width:650px) {
+    #footer .text {
+        margin: 0;
+        margin-top: -110px;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #footer .col-xs-12 {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+
+}
