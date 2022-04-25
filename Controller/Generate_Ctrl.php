@@ -95,7 +95,7 @@ class Gene
                                     require('../Config/setup.php');
                                     
                                     // Controller 
-                                    require('../Controller/'.$Nom_fichier.'_Controller.php');
+                                    require('../Controller/'$Nom_fichier'_Controller.php');
                                     
                                     
                                     // utilisation de contact class 
