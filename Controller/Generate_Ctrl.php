@@ -88,7 +88,7 @@ class Gene
                                         $nom_pages = $_POST['pages'][$i];
                                         $Nom_view = ucfirst($nom_pages);
                                         $Nom_fichier = $Nom_view;
-                                        $view = fopen("$chemin/view/$Nom_fichier.php", 'w');
+                                        $view = fopen("$chemin/view/$nom_pages.php", 'w');
                                         fwrite($view, "<?php
 
                                     // Database connexion 
