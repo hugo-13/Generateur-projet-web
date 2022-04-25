@@ -29,6 +29,8 @@ class Gene
                 $password_bd = filter_input(INPUT_POST, "pass_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $hote_bd = filter_input(INPUT_POST, "hote_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+                $projet = [$nom . "_Local", $nom . "_Prod"];
+
 
 
                 // Pages
@@ -56,8 +58,9 @@ class Gene
                     if (is_dir($nom)) {
 
                         echo 'Le répertoire existe déjà!';
-
                     } else {
+
+
 
                         // Si le fichier n'existe pas on le créé 
                         if (!file_exists("$chemin/$nom")) {
@@ -66,25 +69,27 @@ class Gene
                             if (!mkdir("$chemin/$nom")) {
 
                                 $erreur++;
-
                             } else {
+                                $chemin_ini = $chemin;
 
 
                                 $erreur_globale = "Le projet a été créé *";
 
-                                $chemin = "$chemin/$nom";
+                                for ($y = 0; $y < 2; $y++) {
+                                    $chemin = "$chemin_ini/$nom/".$projet[$y];
+                                    mkdir($chemin);
 
-                                // On créé tout les sous-dossier et fihiers nécessaire 
-                                mkdir("$chemin/view");
+                                    // On créé tout les sous-dossier et fihiers nécessaire 
+                                    mkdir("$chemin/view");
 
-                                // Pages 
-                                for ($i = 0; $i < $_SESSION['nb_pages']; $i++) {
+                                    // Pages 
+                                    for ($i = 0; $i < $_SESSION['nb_pages']; $i++) {
 
-                                    $nom_pages = $_POST['pages'][$i];
-                                    $Nom_view = ucfirst($nom_pages);
-                                    $Nom_fichier = $Nom_view;
-                                    $view = fopen("$chemin/view/$Nom_fichier.php", 'w');
-                                    fwrite($view, "<?php
+                                        $nom_pages = $_POST['pages'][$i];
+                                        $Nom_view = ucfirst($nom_pages);
+                                        $Nom_fichier = $Nom_view;
+                                        $view = fopen("$chemin/view/$Nom_fichier.php", 'w');
+                                        fwrite($view, "<?php
 
                                     // Database connexion 
                                     require('../Config/setup.php');
@@ -104,27 +109,26 @@ class Gene
                                     
                                     
                                     ?>");
+                                    }
 
-                                }
+                                    mkdir("$chemin/view/partials");
+                                    fopen("$chemin/view/partials/footer.php", 'w');
+                                    fopen("$chemin/view/partials/header.php", 'w');
+                                    fopen("$chemin/view/partials/head.php", 'w');
 
-                                mkdir("$chemin/view/partials");
-                                fopen("$chemin/view/partials/footer.php", 'w');
-                                fopen("$chemin/view/partials/header.php", 'w');
-                                fopen("$chemin/view/partials/head.php", 'w');
+                                    mkdir("$chemin/css");
+                                    fopen("$chemin/css/style.css", 'w');
 
-                                mkdir("$chemin/css");
-                                fopen("$chemin/css/style.css", 'w');
+                                    mkdir("$chemin/images");
 
-                                mkdir("$chemin/images");
+                                    // Dztabase 
+                                    if ($_SESSION['nb_tables'] > 0) {
 
-                                // Dztabase 
-                                if ($_SESSION['nb_tables'] > 0) {
+                                        // Config database 
+                                        mkdir("$chemin/Config");
 
-                                    // Config database 
-                                    mkdir("$chemin/Config");
-
-                                    $core = fopen("$chemin/Config/Core.php", 'c+b');
-                                    fwrite($core, "<?php 
+                                        $core = fopen("$chemin/Config/Core.php", 'c+b');
+                                        fwrite($core, "<?php 
 
                                     class Core{
                                         static \$bdd;
@@ -138,8 +142,8 @@ class Gene
                                         }
                                     }");
 
-                                    $database = fopen("$chemin/Config/Database.php", 'c+b');
-                                    fwrite($database, "<?php
+                                        $database = fopen("$chemin/Config/Database.php", 'c+b');
+                                        fwrite($database, "<?php
 
                                     class Database
                                     {
@@ -161,19 +165,19 @@ class Gene
                                     }");
 
 
-                                    $setup = fopen("$chemin/Config/setup.php", 'c+b');
-                                    fwrite($setup, "<?php \n require('./Core.php'); \n require('./Database.php');");
+                                        $setup = fopen("$chemin/Config/setup.php", 'c+b');
+                                        fwrite($setup, "<?php \n require('./Core.php'); \n require('./Database.php');");
 
-                                    // Model 
-                                    mkdir("$chemin/Model");
+                                        // Model 
+                                        mkdir("$chemin/Model");
 
-                                    for ($i = 0; $i < $_SESSION['nb_tables']; $i++) {
+                                        for ($i = 0; $i < $_SESSION['nb_tables']; $i++) {
 
-                                        $nom_tables = $_POST['tables'][$i];
-                                        $Name_tables = ucfirst($nom_tables);
-                                        $Name_page = $Name_tables."_Model";
-                                        $model = fopen("$chemin/Model/$Name_page.php", 'c+b');
-                                        fwrite($model, "<?php
+                                            $nom_tables = $_POST['tables'][$i];
+                                            $Name_tables = ucfirst($nom_tables);
+                                            $Name_page = $Name_tables . "_Model";
+                                            $model = fopen("$chemin/Model/$Name_page.php", 'c+b');
+                                            fwrite($model, "<?php
 
                                         // Permet d'avoir le fichier nommé contact un seul fois le rendre unique
                                         namespace Model$Name_tables;
@@ -190,23 +194,21 @@ class Gene
                                                 return \$sql;
                                             }
                                         }");
-
+                                        }
                                     }
 
-                                }
 
+                                    mkdir("$chemin/js");
 
-                                mkdir("$chemin/js");
+                                    mkdir("$chemin/Controller");
 
-                                mkdir("$chemin/Controller");
+                                    for ($i = 0; $i < $_SESSION['nb_pages']; $i++) {
 
-                                for ($i = 0; $i < $_SESSION['nb_pages']; $i++) {
-
-                                    $nom_pages = $_POST['pages'][$i];
-                                    $Name_pages = ucfirst($nom_pages);
-                                    $Nom_fichier = $Name_pages."_Controller";
-                                    $controller = fopen("$chemin/Controller/$Nom_fichier.php", 'c+b');
-                                    fwrite($controller, "<?php
+                                        $nom_pages = $_POST['pages'][$i];
+                                        $Name_pages = ucfirst($nom_pages);
+                                        $Nom_fichier = $Name_pages . "_Controller";
+                                        $controller = fopen("$chemin/Controller/$Nom_fichier.php", 'c+b');
+                                        fwrite($controller, "<?php
 
 
                                     // Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
@@ -222,7 +224,9 @@ class Gene
                                     {
 
                                     }");
+                                    }
                                 }
+
 
 
                                 $this->erreur_globale = $erreur_globale;
