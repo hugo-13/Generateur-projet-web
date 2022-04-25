@@ -76,7 +76,7 @@ class Gene
                                 $erreur_globale = "Le projet a été créé *";
 
                                 for ($y = 0; $y < 2; $y++) {
-                                    $chemin = "$chemin_ini/$nom/".$projet[$y];
+                                    $chemin = "$chemin_ini/$nom/" . $projet[$y];
                                     mkdir($chemin);
 
                                     // On créé tout les sous-dossier et fihiers nécessaire 
@@ -88,28 +88,48 @@ class Gene
                                         $nom_pages = $_POST['pages'][$i];
                                         $Nom_view = ucfirst($nom_pages);
                                         $Nom_fichier = $Nom_view;
-                                        $controller = $Nom_fichier."_Controller"; 
+                                        $controller = $Nom_fichier . "_Controller";
                                         $view = fopen("$chemin/view/$nom_pages.php", 'w');
-                                        fwrite($view, "<?php
+                                        if ($_SESSION['nb_tables'] > 0) {
+                                            fwrite($view, "<?php
 
-                                    // Database connexion 
-                                    require('../Config/setup.php');
-                                    
-                                    // Controller 
-                                    require('../Controller/$controller.php');
-                                    
-                                    
-                                    // utilisation de contact class 
-                                    use $Nom_view\\$Nom_view;
-                                    
-                                    // appel de la class
-                                    $$nom_pages = new $Nom_view;
-                                    
-                                    // Lancement de la fonction
-                                    //\$nom_pages->nom_methode();
-                                    
-                                    
-                                    ?>");
+                                            // Database connexion 
+                                            require('../Config/setup.php');
+                                            
+                                            // Controller 
+                                            require('../Controller/$controller.php');
+                                            
+                                            
+                                            // utilisation de contact class 
+                                            use $Nom_view\\$Nom_view;
+                                            
+                                            // appel de la class
+                                            $$nom_pages = new $Nom_view;
+                                            
+                                            // Lancement de la fonction
+                                            //\$nom_pages->nom_methode();
+                                            
+                                            
+                                            ?>");
+                                        } else {
+                                            fwrite($view, "<?php
+                                            
+                                            // Controller 
+                                            require('../Controller/$controller.php');
+                                            
+                                            
+                                            // utilisation de contact class 
+                                            use $Nom_view\\$Nom_view;
+                                            
+                                            // appel de la class
+                                            $$nom_pages = new $Nom_view;
+                                            
+                                            // Lancement de la fonction
+                                            //\$nom_pages->nom_methode();
+                                            
+                                            
+                                            ?>");
+                                        }
                                     }
 
                                     mkdir("$chemin/view/partials");
