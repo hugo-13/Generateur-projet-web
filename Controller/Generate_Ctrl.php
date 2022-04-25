@@ -26,7 +26,7 @@ class Gene
 
                 $nom_bd = filter_input(INPUT_POST, "nom_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $user_bd = filter_input(INPUT_POST, "user_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $password_bd = filter_input(INPUT_POST, "pass_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $password_bd = filter_input(INPUT_POST, "password_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $hote_bd = filter_input(INPUT_POST, "hote_bd", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                 $projet = [$nom . "_Local", $nom . "_Prod"];
@@ -88,6 +88,7 @@ class Gene
                                         $nom_pages = $_POST['pages'][$i];
                                         $Nom_view = ucfirst($nom_pages);
                                         $Nom_fichier = $Nom_view;
+                                        $controller = $Nom_fichier."_Controller"; 
                                         $view = fopen("$chemin/view/$nom_pages.php", 'w');
                                         fwrite($view, "<?php
 
@@ -95,14 +96,14 @@ class Gene
                                     require('../Config/setup.php');
                                     
                                     // Controller 
-                                    require('../Controller/'$Nom_fichier'_Controller.php');
+                                    require('../Controller/$controller.php');
                                     
                                     
                                     // utilisation de contact class 
-                                    use $Nom_view/$Nom_view;
+                                    use $Nom_view\\$Nom_view;
                                     
                                     // appel de la class
-                                    $nom_pages = new $Nom_view;
+                                    $$nom_pages = new $Nom_view;
                                     
                                     // Lancement de la fonction
                                     //\$nom_pages->nom_methode();
@@ -155,7 +156,7 @@ class Gene
                                         {
                                             try {
                                                 // Connexion bd 
-                                                \$this->bdd = new PDO('mysql:host=\$host;dbname=\$db_name', \$user, \$password);
+                                                \$this->bdd = new PDO('mysql:host='.\$host.';dbname='.\$db_name.'', \$user, \$password);
                                                 // set the PDO error mode to exception
                                                 \$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                                             } catch (PDOException \$e) {
@@ -214,7 +215,7 @@ class Gene
                                     // Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
                                     namespace $Name_pages;
                                     
-                                    // use Model_delapage/Model_Nom;
+                                    // use Model_delapage\Model_Nom;
                                     
                                     // require('../Model/Model_Nom.php');
                                     
