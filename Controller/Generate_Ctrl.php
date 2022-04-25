@@ -99,7 +99,7 @@ class Gene
                                     
                                     
                                     // utilisation de contact class 
-                                    use $Nom_view\$Nom_view;
+                                    use $Nom_view/$Nom_view;
                                     
                                     // appel de la class
                                     $nom_pages = new $Nom_view;
@@ -214,7 +214,7 @@ class Gene
                                     // Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
                                     namespace $Name_pages;
                                     
-                                    // use Model_delapage\Model_Nom;
+                                    // use Model_delapage/Model_Nom;
                                     
                                     // require('../Model/Model_Nom.php');
                                     
