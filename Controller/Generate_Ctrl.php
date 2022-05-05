@@ -157,7 +157,7 @@ class Gene
                                         static function getDatabase(){
                                     
                                             if(!self::\$bdd){
-                                                return new Database('$nom_bd','$password_bd', '$user_bd');
+                                                return new Database('$user_bd','$password_bd', '$nom_bd');
                                             }
                                             return self::\$bdd;
                                         }
