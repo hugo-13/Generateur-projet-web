@@ -187,7 +187,7 @@ class Gene
 
 
                                         $setup = fopen("$chemin/Config/setup.php", 'c+b');
-                                        fwrite($setup, "<?php \n require('./Core.php'); \n require('./Database.php');");
+                                        fwrite($setup, "<?php \n require('../Config/Core.php'); \n require('../Config/Database.php');");
 
                                         // Model 
                                         mkdir("$chemin/Model");
