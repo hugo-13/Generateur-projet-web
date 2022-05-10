@@ -93,42 +93,54 @@ class Gene
                                         if ($_SESSION['nb_tables'] > 0) {
                                             fwrite($view, "<?php
 
-                                            // Database connexion 
-                                            require('../Config/setup.php');
+// Database connexion 
+require('../Config/setup.php');
                                             
-                                            // Controller 
-                                            require('../Controller/$controller.php');
-                                            
-                                            
-                                            // utilisation de contact class 
-                                            use $Nom_view\\$Nom_view;
-                                            
-                                            // appel de la class
-                                            $$nom_pages = new $Nom_view;
-                                            
-                                            // Lancement de la fonction
-                                            //\$nom_pages->nom_methode();
+// Controller 
+require('../Controller/$controller.php');
                                             
                                             
-                                            ?>");
+// utilisation de contact class 
+use $Nom_view\\$Nom_view;
+                                            
+// appel de la class
+$$nom_pages = new $Nom_view;
+                                            
+// Lancement de la fonction
+//\$nom_pages->nom_methode();
+                                            
+                                            
+?>
+
+
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <?php include('./partials/head.php') ?>
+    <title>Title</title>
+</head>
+<body>
+    <header>
+        <?php include('./partials/header.php') ?>
+    </header>
+    
+</body>
+</html>");
                                         } else {
                                             fwrite($view, "<?php
                                             
-                                            // Controller 
-                                            require('../Controller/$controller.php');
+// Controller 
+require('../Controller/$controller.php');
                                             
                                             
-                                            // utilisation de contact class 
-                                            use $Nom_view\\$Nom_view;
+// utilisation de contact class 
+use $Nom_view\\$Nom_view;
                                             
-                                            // appel de la class
-                                            $$nom_pages = new $Nom_view;
+// appel de la class
+$$nom_pages = new $Nom_view;
                                             
-                                            // Lancement de la fonction
-                                            //\$nom_pages->nom_methode();
-                                            
-                                            
-                                            ?>");
+?>
+>");
                                         }
                                     }
 
@@ -151,39 +163,40 @@ class Gene
                                         $core = fopen("$chemin/Config/Core.php", 'c+b');
                                         fwrite($core, "<?php 
 
-                                    class Core{
-                                        static \$bdd;
+class Core{
+
+    static \$bdd;
                                     
-                                        static function getDatabase(){
-                                    
-                                            if(!self::\$bdd){
-                                                return new Database('$user_bd','$password_bd', '$nom_bd');
-                                            }
-                                            return self::\$bdd;
-                                        }
-                                    }");
+    static function getDatabase(){
+                                        
+        if(!self::\$bdd){
+            return new Database('$user_bd','$password_bd', '$nom_bd');
+            }
+        return self::\$bdd;
+    }
+}");
 
                                         $database = fopen("$chemin/Config/Database.php", 'c+b');
                                         fwrite($database, "<?php
 
-                                    class Database
-                                    {
+class Database
+{
                                     
-                                        private \$bdd;
-                                        private \$erreur_requete;
-                                    
-                                        public function __construct(\$user, \$password, \$db_name, \$host = '$hote_bd')
-                                        {
-                                            try {
-                                                // Connexion bd 
-                                                \$this->bdd = new PDO('mysql:host='.\$host.';dbname='.\$db_name.'', \$user, \$password);
-                                                // set the PDO error mode to exception
-                                                \$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                            } catch (PDOException \$e) {
-                                                echo 'Connection failed: ' . \$e->getMessage();
-                                            }
-                                        }
-                                    }");
+    private \$bdd;
+    private \$erreur_requete;
+                                        
+    public function __construct(\$user, \$password, \$db_name, \$host = '$hote_bd')
+    {
+        try {
+            // Connexion bd 
+            \$this->bdd = new PDO('mysql:host='.\$host.';dbname='.\$db_name.'', \$user, \$password);
+            // set the PDO error mode to exception
+            \$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException \$e) {
+        echo 'Connection failed: ' . \$e->getMessage();
+        }
+    }
+}");
 
 
                                         $setup = fopen("$chemin/Config/setup.php", 'c+b');
@@ -200,21 +213,23 @@ class Gene
                                             $model = fopen("$chemin/Model/$Name_page.php", 'c+b');
                                             fwrite($model, "<?php
 
-                                        // Permet d'avoir le fichier nommé contact un seul fois le rendre unique
-                                        namespace Model$Name_tables;
+// Permet d'avoir le fichier nommé contact un seul fois le rendre unique
+namespace Model$Name_tables;
                                         
-                                        use Core;
-                                        class Model$Name_tables {
-                                            // Select
-                                            public function select_$nom_tables()
-                                            {
-                                                // Connexion a la bd
-                                                \$bdd = Core::getDatabase();
-                                                // Insertion des donné dans la table 
-                                                \$sql = \$bdd->query('Votre requête');
-                                                return \$sql;
-                                            }
-                                        }");
+use Core;
+
+class Model$Name_tables {
+
+    // Select
+    public function select_$nom_tables()
+        {
+            // Connexion a la bd
+            \$bdd = Core::getDatabase();
+            // Insertion des donné dans la table 
+            \$sql = \$bdd->query('Votre requête');
+            return \$sql;
+        }
+}");
                                         }
                                     }
 
@@ -232,19 +247,19 @@ class Gene
                                         fwrite($controller, "<?php
 
 
-                                    // Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
-                                    namespace $Name_pages;
+// Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
+namespace $Name_pages;
                                     
-                                    // use Model_delapage\Model_Nom;
+// use Model_delapage\Model_Nom;
                                     
-                                    // require('../Model/Model_Nom.php');
+// require('../Model/Model_Nom.php');
                                     
                                     
-                                    // class 
-                                    class $Name_pages
-                                    {
+// class 
+class $Name_pages
+{
 
-                                    }");
+}");
                                     }
                                 }
 
