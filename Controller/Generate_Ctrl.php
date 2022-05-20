@@ -140,7 +140,7 @@ use $Nom_view\\$Nom_view;
 $$nom_pages = new $Nom_view;
                                             
 ?>
->");
+");
                                         }
                                     }
 
