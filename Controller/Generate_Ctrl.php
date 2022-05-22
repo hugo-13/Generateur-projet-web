@@ -179,6 +179,8 @@ class Core{
                                         $database = fopen("$chemin/Config/Database.php", 'c+b');
                                         fwrite($database, "<?php
 
+require('../Controller/functions/historisation.php');
+
 class Database
 {
                                     
@@ -225,7 +227,7 @@ class Database
             \$erreur = \$erreur . '[MESSAGE] : ' . \$e->getMessage() . '\n';
             // LA NOTATION .= revient a la meme chose qu'au dessus
             \$erreur .=  '[IP USER] : ' . \$_SERVER['REMOTE_ADDR'] . '\n';
-            historisation('log', 'erreur_requete', \$erreur);
+            // historisation('log', 'erreur_requete', \$erreur);
             //ERREUR POUR L'ECRAN USER
             echo '<div style='margin-top: 100px; margin-left:10px; color:red; font-weight:700;'>UNE ERREUR EST SURVENUE **</div>';
         }
