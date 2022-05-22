@@ -249,10 +249,12 @@ class Model$Name_tables {
 
 // Permet d'avoir le fichier nommé contact un seul fois le rendre unique 
 namespace $Name_pages;
+                
+// require('../Model/Nom_Model.php');
+
+// use ModelNom\ModelNom;
                                     
-// use Model_delapage\Model_Nom;
-                                    
-// require('../Model/Model_Nom.php');
+
                                     
                                     
 // class 
