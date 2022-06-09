@@ -135,7 +135,7 @@ $$nom_pages = new $Nom_view;
 
     <!-- Le bas de page -->
     <footer>
-        <?php include('./partials/header.php') ?>
+        <?php include('./partials/footer.php') ?>
     </footer>
 
     
