@@ -116,13 +116,28 @@ $$nom_pages = new $Nom_view;
 <!DOCTYPE html>
 <html lang='fr'>
 <head>
+
     <?php include('./partials/head.php') ?>
     <title>Title</title>
+
 </head>
 <body>
+
+    <!-- Le haut de page -->
     <header>
         <?php include('./partials/header.php') ?>
     </header>
+
+    <!-- Le contenue principal de la page -->
+    <main>
+
+    <\main>
+
+    <!-- Le bas de page -->
+    <footer>
+        <?php include('./partials/header.php') ?>
+    </footer>
+
     
 </body>
 </html>");
@@ -229,7 +244,7 @@ class Database
             \$erreur .=  '[IP USER] : ' . \$_SERVER['REMOTE_ADDR'] . '\n';
             // historisation('log', 'erreur_requete', \$erreur);
             //ERREUR POUR L'ECRAN USER
-            echo '<div style='margin-top: 100px; margin-left:10px; color:red; font-weight:700;'>UNE ERREUR EST SURVENUE **</div>';
+            echo \"<div style='margin-top: 100px; margin-left:10px; color:red; font-weight:700;'>UNE ERREUR EST SURVENUE **</div>\";
         }
     }
 }");
